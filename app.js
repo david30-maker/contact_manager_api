@@ -1,5 +1,4 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const connectDB = require('./config/db');
 const contactRoutes = require('./routes/contactRoutes');
 
@@ -9,13 +8,17 @@ const app = express();
 connectDB();
 
 // Init Middleware
-app.use(bodyParser.json());
+app.use(express.json());
 
+// Define Routes
 app.use('/api/contacts', contactRoutes);
 
-app.get('/', (req, res) => {
-    res.send('Welcome to the Contact Keeper API');
+// Test Route
+app.post('/test', (req, res) => {
+    console.log('Request Body:', req.body); // Log the request body
+    res.send('Received');
 });
 
+// Start Server
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));

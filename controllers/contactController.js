@@ -11,22 +11,26 @@ exports.getContacts =  async (req, res) => {
 };
 
 exports.createContact = async (req, res) => {
-    const { name, email, phone } = req.body;
+  const { name, email, phone } = req.body;
 
-    try {
-        const newContact = new Contact({
-            name,
-            email,
-            phone,
-            type
-        });
+  // Check if name and email are provided
+  // if (!name || !email) {
+  //     return res.status(400).json({ message: 'Please include both name and email.' });
+  // }
 
-        const contact = await newContact.save();
-        res.json(contact);
-    } catch (error) {
-        console.error(error.message);
-        res.status(500).json({ message: 'Server Error'});
-    }
+  try {
+      const newContact = new Contact({
+          name,
+          email,
+          phone
+      });
+
+      const contact = await newContact.save();
+      res.json(contact);
+  } catch (error) {
+      console.error(error.message);
+      res.status(500).json({ message: 'Server Error' });
+  }
 };
 
 exports.updateContact = async (req, res) => {
