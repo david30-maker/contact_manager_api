@@ -2,15 +2,13 @@ const mongoose = require('mongoose');
 
 const connectDB = async () => {
   try {
-    const conn = await mongoose.connect(process.env.MONGO_URI, {
+      await mongoose.connect('mongodb://localhost/contact-manager-mvc', {
       useNewUrlParser: true,
-      useUnifiedTopology: true,
-      useFindAndModify: false,
+      useUnifiedTopology: true
     });
-
-    console.log(`MongoDB Connected: ${conn.connection.host}`);
+    console.log('MongoDB Connected: ...');
   } catch (err) {
-    console.log(err);
+    console.error(err.message);
     process.exit(1);
   }
 };
